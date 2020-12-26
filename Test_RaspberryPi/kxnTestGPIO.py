@@ -37,9 +37,10 @@ gpio.setmode(gpio.BCM)
 #gpio.setup(6, gpio.IN, pull_up_down=gpio.PUD_UP)
 #gpio.setup(pin, gpio.IN, pull_up_down=gpio.PUD_UP)
 gpio.setwarnings(False)
-print("first errcode " + str(kxnErrcode))
+
 try:
     while True:
+        print("==========================")
         testPullup()
         testPulldown()
         if kxnErrcode == 2:
