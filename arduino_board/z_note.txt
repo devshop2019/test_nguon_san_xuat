@@ -1,0 +1,11 @@
+vthanh
+12/10/2021	
+
+Cach test arduino nhanh
+
+1. cam arduino
+2. mo file yyy.bat tuong ung voi board test
+  VD:
+      Uno:  chon file UploadHex_QC_Uno.bat
+      Mega: chon file UploadHex_QC_Mega2560.bat
+3. enter

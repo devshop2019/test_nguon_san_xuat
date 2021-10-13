@@ -2,6 +2,8 @@ rem https://stackoverflow.com/questions/27772861/get-serial-com-port-description
 @echo off
 :start
 
+set myCom=COM8
+
 set MyFile=QC_Firmware_Vietduino_4__n17_11_2019_Old_Nano.hex
 set charac=
 setlocal
@@ -16,7 +18,10 @@ echo %Description%
 echo %Name%
 echo %ProviderType%
 
-%arduino_board%\firmware/avrdude -C%arduino_board%\firmware/avrdude.conf -v -patmega328p -carduino -P%DeviceID% -b57600 -D -Uflash:w:%~dp0\firmware/%MyFile%:i
+if not '%DeviceID%'=='' if not '%DeviceID%'=='COM1' set myCom=%DeviceID%
+if not '%DeviceID%'=='' echo myCom : %myCom%; DeviceID: %DeviceID%
+:upload
+%arduino_board%\firmware/avrdude -C%arduino_board%\firmware/avrdude.conf -v -patmega328p -carduino -P%myCom% -b57600 -D -Uflash:w:%~dp0\firmware/%MyFile%:i
 
 
 echo --------------------------------------------------------------------------------
@@ -30,8 +35,10 @@ echo ---bbp------pbb-----------Qb-------Qbbb--sbb-----Qbb---bb-----QbP--bbp----p
 echo -----PPbbbbPP-------------PP--------SPP----PbbbPP-Pb---PP-----PPC----PbbbbP-----
 echo --------------------------------------------------------------------------------
             
-set /p choice="Nhan Enter de nap board OLD NANO tiep theo. Nhan "y" sau do Enter de tat cua so"
+set /p choice="Nhan Enter de nap board OLD NANO THUONG tiep theo. Nhap so COM neu COM sai. VD: 10"
 if '%choice%'=='' goto start
 if not '%choice%'=='y' set choice=%choice:~0,1%
 rem set /p DUMMY=Hit ENTER to continue...
 
+if not '%choice%'=='' set myCom=COM%choice%
+goto upload
